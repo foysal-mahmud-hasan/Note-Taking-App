@@ -13,4 +13,6 @@ class NoteApplication : Application() {
     val database by lazy { NoteDatabase.getDatabase(this, applicationScope) }
     val repository by lazy { NoteRepository(database.getNoteDao()) }
 
+
+
 }

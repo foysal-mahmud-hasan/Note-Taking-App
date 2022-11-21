@@ -1,9 +1,6 @@
 package com.foysal.practice.databasepractice.ViewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.foysal.practice.databasepractice.Model.Note
 import com.foysal.practice.databasepractice.Repository.NoteRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,8 +12,34 @@ class NoteViewModel(private val repository: NoteRepository) : ViewModel(){
 
     fun insert(note: Note) = viewModelScope.launch(Dispatchers.IO){
 
+        repository.insert(note)
 
+    }
+    fun update(note: Note) = viewModelScope.launch(Dispatchers.IO){
 
+        repository.update(note)
+
+    }
+    fun delete(note: Note) = viewModelScope.launch(Dispatchers.IO){
+
+        repository.delete(note)
+
+    }
+    fun deleteAllNotes(note: Note) = viewModelScope.launch(Dispatchers.IO){
+
+        repository.deleteAllNotes()
+
+    }
+
+}
+
+class NoteViewModelFactory(private var repository: NoteRepository) : ViewModelProvider.Factory{
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(NoteViewModel::class.java)){
+            return NoteViewModel(repository) as T
+        }else{
+            throw java.lang.IllegalArgumentException("Unknown View Model")
+        }
     }
 
 }
