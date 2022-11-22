@@ -53,6 +53,6 @@ class NoteAddActivity : AppCompatActivity() {
         intent.putExtra("title", noteTitle)
         intent.putExtra("description", noteDescription)
         setResult(RESULT_OK,intent)
-
+        finish()
     }
 }

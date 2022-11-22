@@ -1,5 +1,6 @@
 package com.foysal.practice.databasepractice.Adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.foysal.practice.databasepractice.Model.Note
 import com.foysal.practice.databasepractice.R
+import com.foysal.practice.databasepractice.View.EditNoteActivity
+import com.foysal.practice.databasepractice.View.MainActivity
 
-class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class NoteAdapter(private val activity : MainActivity) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     var notes : List<Note> = ArrayList()
 
@@ -34,6 +37,16 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         holder.textViewTitle.text = currentNote.title
         holder.textViewDescription.text = currentNote.description
 
+        holder.cardView.setOnClickListener {
+
+            val intent = Intent(activity, EditNoteActivity::class.java)
+            intent.putExtra("currentTitle", currentNote.title)
+            intent.putExtra("currentDescription", currentNote.description)
+            intent.putExtra("currentId", currentNote.id)
+            // activity result Launcher
+            activity.editActivityResultLauncher.launch(intent)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +58,12 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     fun setNote(myNotes : List<Note>){
         this.notes = myNotes
         notifyDataSetChanged()
+    }
+
+    fun getNote(position: Int) : Note{
+
+        return notes[position]
+
     }
 
 }
