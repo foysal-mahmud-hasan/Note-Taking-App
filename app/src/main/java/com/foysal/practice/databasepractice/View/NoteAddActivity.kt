@@ -19,7 +19,7 @@ class NoteAddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_add)
-
+        // Action bar title for Activity
         supportActionBar?.title = "Add Note"
 
         editTextTitle = findViewById(R.id.editTextNoteTitle)
